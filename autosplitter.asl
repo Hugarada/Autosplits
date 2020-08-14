@@ -22,6 +22,11 @@ init
 	vars.takenbreat = true;
 	vars.atlciv = false;
 	vars.bltorras = false;
+	vars.splittrigger = false;
+	vars.catchable = false;
+	vars.done = false;
+	vars.donable2 = false;
+	vars.armorcomplete = false;
 }
 
 start
@@ -42,6 +47,40 @@ reset
 
 split
 {
+	//split to senekal weapons
+	if(current.level == @"casino\casino.ptx" && vars.splitbreaker >= 4 && vars.armorcomplete == true){
+		return true;
+	}
+	//configuring casino
+	if (current.breastplate > 0 && current.level == @"casino\casino.ptx"){
+		vars.splitbreaker += 1;
+	}
+	//configuring jewel of mankind
+	if(current.level == @"casino\casino.ptx" && vars.splitbreaker == 4 && vars.catchable == false){
+		vars.cathcable = true;
+		vars.splitbreaker = 0;
+	}
+	//split to jewel of mankind
+	if (current.level == @"casino\casino.ptx" && vars.splitbreaker >= 3 && vars.catchable == true && vars.done == false){
+		vars.catchable = false;
+		vars.splitbreaker = 0;
+		vars.done = true;
+		vars.armorcomplete = true;
+		return true;
+	}
+	//configuring royal jewel
+	if (current.granslak > 0 && current.breastplate == 1 && current.level == @"monast1\monast1.ptx"){
+		vars.splittrigger = true;
+	}
+	if (vars.splittrigger == true && vars.donable == false && current.breastplate == 0){
+		vars.donable = true;
+	}
+	//split from royal jewel
+	if (vars.splittrigger == true && vars.donable == true && current.breastplate == 1){
+		vars.splittrigger = false;
+		vars.donable = true;
+		return true;
+	}
 	//split to torras I
 	if (current.level == @"toras\toras.ptx" && vars.bltorras == false){
 		vars.bltorras = true;
@@ -61,13 +100,8 @@ split
 		return true;
 	}
 	//split from torras to torras 2
-	if (old.level == @"toras\toras.ptx" && current.level == @"toras2\toras2.ptx" && vars.donable == false){
-		vars.donable = true;
-		return true;
-	}
-	//split from field of courage to torras
-	if (old.level == @"casino\casino.ptx" && current.level == @"toras2\toras2.ptx" && vars.db2 == false){
-		vars.db2 = true;
+	if (old.level == @"toras\toras.ptx" && current.level == @"toras2\toras2.ptx" && vars.donable2 == false){
+		vars.donable2 = true;
 		return true;
 	}
 	//split from torras II to torras III
