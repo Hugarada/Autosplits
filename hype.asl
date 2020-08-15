@@ -41,6 +41,29 @@ start
 {
 	//split to start the game
 	if (old.level == "fix.ptx" && current.level == @"manoir\manoir.ptx"){
+		vars.granslakkilled = false;
+		vars.donable = false;
+		vars.db2 = false;
+		vars.db = false;
+		vars.once = false;
+		vars.ooc = false;
+		vars.taken = false;
+		vars.takenbreat = true;
+		vars.atlciv = false;
+		vars.bltorras = false;
+		vars.splittrigger = false;
+		vars.catchable = false;
+		vars.done = false;
+		vars.donable2 = false;
+		vars.armorcomplete = false;
+		vars.unrepeatable = false;
+		vars.hereonce = false;
+		vars.t1f = false;
+		vars.t2f = false;
+		vars.t3f = false;
+		vars.enostkilled = false;
+		vars.voithded = false;
+		vars.splitbreaker = 0;
 		return true;
 	}
 }
