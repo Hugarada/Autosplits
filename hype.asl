@@ -145,12 +145,13 @@ split
 	if (current.level == @"fort\fort.ptx" && vars.firsttime == true && vars.hereonce == false && old.breastplate == 0 && current.breastplate > 0){
 		vars.splitbreaker += 1;
 	}
-	if (current.level == @"fort\fort.ptx" && vars.splitbreaker == 2){
+	if (current.level == @"fort\fort.ptx" && vars.splitbreaker == 2 && vars.takenbreat == false){
 		vars.splitbreaker = 0;
+		vars.takenbreat = true;
 		return true;
 	}
 	//split from torras to torras 2
-	if (old.level == @"toras\toras.ptx" && current.level == @"toras2\toras2.ptx" && vars.donable2 == false){
+	if (old.level == @"toras\toras.	ptx" && current.level == @"toras2\toras2.ptx" && vars.donable2 == false){
 		vars.donable2 = true;
 		return true;
 		vars.actualsplit = "era 2 split";
