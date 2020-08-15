@@ -34,6 +34,7 @@ init
 	vars.t3f = false;
 	vars.enostkilled = false;
 	vars.voithded = false;
+	vars.splitbreaker = 0;
 }
 
 start
