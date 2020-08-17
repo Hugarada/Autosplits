@@ -27,7 +27,6 @@ init
 	vars.catchable = false;
 	vars.done = false;
 	vars.donable2 = false;
-	vars.armorcomplete = false;
 	vars.unrepeatable = false;
 	vars.hereonce = false;
 	vars.t1f = false;
@@ -39,6 +38,10 @@ init
 	vars.firsttime = false;
 	vars.unchanged = false;
 	vars.actualsplit = "";
+	vars.dragon = false;
+	vars.armorcomplete = true;
+	vars.firstboss = 0;
+	vars.senekal = false;
 }
 
 start
@@ -70,6 +73,9 @@ start
 		vars.splitbreaker = 0;
 		vars.firsttime = false;
 		vars.unchanged = false;
+		vars.dragon = false;
+		vars.firstboss = 0;
+		vars.senekal = false;
 		return true;
 	}
 }
@@ -85,31 +91,30 @@ reset
 split
 {
 	//split to senekal weapons
-	if(current.level == @"casino\casino.ptx" && vars.splitbreaker >= 4 && vars.armorcomplete == true){
+	if(current.level == @"casino\casino.ptx" && vars.splitbreaker >= 4 && vars.armorcomplete == true && vars.senekal == true){
 		return true;
 		vars.actualsplit = "Senekal split";
 	}
 	//configuring jewel of mankind
-	if(current.level == @"casino\casino.ptx" && vars.splitbreaker >= 4 && vars.catchable == false){
-		vars.cathcable = true;
-		vars.splitbreaker = 0;
+	if(current.level == @"casino\casino.ptx" && current.granslak > 0 && old.granslak == 0 && armorcomplete == false){
+		vars.firstboss += 1;
 	}
-	if (current.breastplate > 0 && current.level == @"casino\casino.ptx"){
+	if (vars.firstboss >= 2 && vars.catchable == false){
+		vars.catchable = true;
+	}
+	if (vars.catchable == true && old.breastplate == 0 && current.breastplate > 0){
 		vars.splitbreaker += 1;
 	}
-	if (vars.catchable == true && current.granslak > 0){
-		vars.unrepeatable = true;
-		vars.catchable = false;
-	}
-	if (old.level == @"casino\casino.ptx" && current.level == @"toras2\toras2.ptx"){
+	if (old.level == @"casino\casino.ptx" && current.level == @"toras2\toras2.ptx" && vars.senekal == false){
 		vars.done = false;
+		vars.senekal = true;
 	}
 	//split to jewel of mankind
-	if (vars.splitbreaker >= 2 && vars.unrepeatable == true && vars.done == false){
-		vars.unrepeatable = false;
+	if (vars.splitbreaker == 2 && current.level == @"casino\casino.ptx" && vars.armorcomplete == false && vars.catchable == true){
+		vars.armorcomplete = true;
+		vars.catchable = false;
 		vars.splitbreaker = 0;
 		vars.done = true;
-		vars.armorcomplete = true;
 		return true;
 		vars.actualsplit = "jewel of mankind";
 	}
@@ -150,8 +155,8 @@ split
 		vars.takenbreat = true;
 		return true;
 	}
-	//split from torras to torras 2
-	if (old.level == @"toras\toras.	ptx" && current.level == @"toras2\toras2.ptx" && vars.donable2 == false){
+	//split to torras 2
+	if (current.level == @"toras2\toras2.ptx" && vars.donable2 == false){
 		vars.donable2 = true;
 		return true;
 		vars.actualsplit = "era 2 split";
@@ -162,13 +167,18 @@ split
 		return true;
 		vars.actualsplit = "era 3 split";
 	}
+	//configing jewel of virtue
+	if (current.level == @"cite3\cite3.ptx" && vars.splitbreaker >= 8){
+		vars.ooc = true;
+		vars.splitbreaker = 0;
+	}
 	//split to jewel of virtue
-	if (current.level == @"cite3\cite3.ptx" && vars.splitbreaker >= 9 && current.breastplate == 0){
+	if (current.level == @"cite3\cite3.ptx" && vars.ooc == true && vars.splitbreaker == 1 && current.breastplate == 1){
 		vars.splitbreaker = 0;
 		return true;
 		vars.actualsplit = "jewel of virtue split";
 	}
-	else if (current.level == @"cite3\cite3.ptx" && old.breastplate == 0) {
+	else if (current.level == @"cite3\cite3.ptx" && old.breastplate == 0 && current.breastplate > 0) {
 		vars.splitbreaker += 1;
 	}
 	//split to era IV in torras
