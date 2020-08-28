@@ -96,13 +96,13 @@ split
 		vars.actualsplit = "Senekal split";
 	}
 	//configuring jewel of mankind
-	if(current.level == @"casino\casino.ptx" && current.granslak > 0 && old.granslak == 0 && armorcomplete == false){
+	if(current.level == @"casino\casino.ptx" && current.granslak > 0 && old.granslak == 0 && vars.firstboss < 2){
 		vars.firstboss += 1;
 	}
-	if (vars.firstboss >= 2 && vars.catchable == false){
+	if (vars.firstboss == 2 && vars.catchable == false){
 		vars.catchable = true;
 	}
-	if (vars.catchable == true && old.breastplate == 0 && current.breastplate > 0){
+	if (vars.catchable == true && old.breastplate == 0 && current.breastplate > 0 && vars.senekal == false && vars.firstboss == 2){
 		vars.splitbreaker += 1;
 	}
 	if (old.level == @"casino\casino.ptx" && current.level == @"toras2\toras2.ptx" && vars.senekal == false){
@@ -110,7 +110,7 @@ split
 		vars.senekal = true;
 	}
 	//split to jewel of mankind
-	if (vars.splitbreaker == 2 && current.level == @"casino\casino.ptx" && vars.armorcomplete == false && vars.catchable == true){
+	if (vars.splitbreaker == 2 && current.level == @"casino\casino.ptx" && vars.armorcomplete == false && vars.catchable == true && vars.firstboss == 2){
 		vars.armorcomplete = true;
 		vars.catchable = false;
 		vars.splitbreaker = 0;
